@@ -1,0 +1,2684 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{AnalyzeABTestResults3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{analyze-ab-test-results}{%
+\subsection{Analyze A/B Test Results}\label{analyze-ab-test-results}}
+
+This project will assure you have mastered the subjects covered in the
+statistics lessons. The hope is to have this project be as comprehensive
+of these topics as possible. Good luck!
+
+\hypertarget{table-of-contents}{%
+\subsection{Table of Contents}\label{table-of-contents}}
+
+\begin{itemize}
+\tightlist
+\item
+  Section \ref{intro}
+\item
+  Section \ref{probability}
+\item
+  Section \ref{ab_test}
+\item
+  Section \ref{regression}
+\end{itemize}
+
+ \#\#\# Introduction
+
+A/B tests are very commonly performed by data analysts and data
+scientists. It is important that you get some practice working with the
+difficulties of these
+
+For this project, you will be working to understand the results of an
+A/B test run by an e-commerce website. Your goal is to work through this
+notebook to help the company understand if they should implement the new
+page, keep the old page, or perhaps run the experiment longer to make
+their decision.
+
+\textbf{As you work through this notebook, follow along in the classroom
+and answer the corresponding quiz questions associated with each
+question.} The labels for each classroom concept are provided for each
+question. This will assure you are on the right track as you work
+through the project, and you can feel more confident in your final
+submission meeting the criteria. As a final check, assure you meet all
+the criteria on the
+\href{https://review.udacity.com/\#!/projects/37e27304-ad47-4eb0-a1ab-8c12f60e43d0/rubric}{RUBRIC}.
+
+ \#\#\#\# Part I - Probability
+
+To get started, let's import our libraries.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{c+c1}{\PYZsh{}We are setting the seed to assure you get the same answers on quizzes as we set up}
+        \PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+
+    \texttt{1.} Now, read in the \texttt{ab\_data.csv} data. Store it in
+\texttt{df}. \textbf{Use your dataframe to answer the questions in Quiz
+1 of the classroom.}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Read in the dataset and take a look at the top few rows here:
+\end{enumerate}
+
+    \emph{Eu não vou mudar os nomes das colunas (apesar de ter ficado na
+tentação), pois parece um exercício guiado}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{dfdados} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ab\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \emph{Interpretando o que temos aqui. É um teste de duas páginas de
+Webpage, como aquelas da empresa \textbf{Audacity}. Então usuários
+encontram a empresa num mecanismo de busca e são direcionados a uma
+página oferecendo cursos. O detalhe é que a busca tem um
+\textbf{forking} e ela conduz alguns usuários para a página antiga
+(\textbf{grupo de controle}) e outros para a página novo (\textbf{grupo
+de tratamento}. O usuário lê algumas coisas e se se interessar, irá
+clicar numa espécie de botão (``adquirir o produto'', o que é chamado de
+\textbf{converted}).}
+
+O dataset grava as seguintes informações:
+
+\begin{itemize}
+\item
+  id do usuário (para saber se não é a mesma pessoa que está entrando
+  duas vezes - pode ter havido um erro no carregamento da página, etc..)
+  - eu quero trabalhar com IDs \textbf{únicos}
+\item
+  timestamp (um formato de data e hora do acesso)
+\item
+  grupo (\textbf{controle} ou \textbf{tratamento})
+\item
+  página acessada (\textbf{antiga} ou \textbf{nova}) - informação
+  redundante, pois a do grupo deveria suprir isso!
+\item
+  convertido (\textbf{zero} ou \textbf{um}) - a pessoa se
+  \textbf{converteu}, ou seja, comprou o produto?
+\end{itemize}
+
+Uma H0 típica de um caso desses seria:
+
+\begin{itemize}
+\tightlist
+\item
+  a taxa de conversão da página \textbf{antiga} é igual ou maior do que
+  a taxa de conversão da página \textbf{nova}
+\end{itemize}
+
+Uma H1 típica:
+
+\begin{itemize}
+\tightlist
+\item
+  a taxa de conversão da página \textbf{nova} é maior do que a taxa de
+  conversão da página \textbf{antiga}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{dfdados}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}134}]:}                           timestamp      group landing\_page  converted
+          user\_id                                                               
+          851104   2017-01-21 22:11:48.556739    control     old\_page          0
+          804228   2017-01-12 08:01:45.159739    control     old\_page          0
+          661590   2017-01-11 16:55:06.154213  treatment     new\_page          0
+          853541   2017-01-08 18:28:03.143765  treatment     new\_page          0
+          864975   2017-01-21 01:52:26.210827    control     old\_page          1
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Use the below cell to find the number of rows in the dataset.
+\end{enumerate}
+
+    \emph{Costumeiramente eu faço isso:}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{n}{dfdados}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 294478 entries, 851104 to 715931
+Data columns (total 4 columns):
+timestamp       294478 non-null object
+group           294478 non-null object
+landing\_page    294478 non-null object
+converted       294478 non-null int64
+dtypes: int64(1), object(3)
+memory usage: 11.2+ MB
+
+    \end{Verbatim}
+
+    \emph{Mais elegante\ldots{}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{São }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ linhas no dataset}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{dfdados}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+São 294478 linhas no dataset
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  The number of unique users in the dataset.
+\end{enumerate}
+
+\emph{Nada como Stack Overflow - eles recomendam fazer literalmente
+algumas operações, como dropna=True (isso pode me fazer evitar erros no
+futuro!)}
+
+\emph{Aparentemente alguns usuários visitaram o site várias vezes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{ususing} \PY{o}{=} \PY{n}{dfdados}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}dropna=True aqui realmente não existem NaNs}
+        
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{São }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ usuários singulares}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ususing}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+São 290584 usuários singulares
+
+    \end{Verbatim}
+
+    \hypertarget{section}{%
+\subsubsection{2/5}\label{section}}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  The proportion of users converted.
+\end{enumerate}
+
+    Não ficou \textbf{perfeito}:
+
+\begin{itemize}
+\tightlist
+\item
+  eu tenho alguns usuários repetidos, o cara entrou uma, duas vezes e
+  acabou comprando ou não\ldots{} na terceira entrada!
+\end{itemize}
+
+\emph{Por que estou insistindo neste pequeno problema deste dataset? Por
+uma razão simples, se seguirmos a \textbf{ortodoxia} da análise
+Estatística, precisaríamos \textbf{eliminar} as diversas entradas de um
+usuário singular! Por que? Por uma razão muito simples, uma das
+premissas da inferência é de que os eventos devem ser
+\textbf{independentes}!}
+
+\emph{Depois dá para verificar que este pequeno desvio é passável, pois
+foi realmente um pequeno número de usuários que fizeram mais de um
+acesso (e possivelmente à página \textbf{nova} e \textbf{antiga}). Mas
+funciona assim: se eu sou um usuário \textbf{singular} e muito bem,
+entro numa máquina\ldots{} ``hmmm, vi, não animei (10\%
+convencido)''\ldots{} entro de novo\ldots{} ``hmmm, sei, ainda não (30\%
+convencido)''\ldots{} e entro a terceira vez e faço a compra (100\%
+convencido)! Sabe o que aconteceu? Isso não é como jogar uma moeda
+\textbf{justa}, pois neste caso, dado um usuário, a entrada anterior
+\textbf{condiciona} a posterior! (pois ele possui \textbf{memória})}
+
+\emph{Tudo bem, este é apenas um exercício\ldots{} mas se formos tratar
+dados de verdade, temos que atentar aos pequenos detalhes\ldots{} e que
+ao final podem ser \textbf{fatais}!}
+
+\emph{Mais um comentário, como faríamos em \textbf{Física}? Pegamos
+sempre o \textbf{último} resultado para um indivíduo\ldots{} Dizemos que
+ele colapsou em \(n(t)\)\ldots{} mas isso é mera curiosidade\ldots{}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}163}]:} \PY{n}{convertidos} \PY{o}{=} \PY{n}{dfdados}\PY{o}{.}\PY{n}{converted}
+          \PY{c+c1}{\PYZsh{}convertidos}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aderiram em média }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ usuários}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{convertidos}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Aderiram em média 0.11965919355605512 usuários
+
+    \end{Verbatim}
+
+    \emph{Nada como praticar jeitos diferentes\ldots{} de grafia\ldots{} (já
+me embaralhei demais lendo códigos de terceiros e pensando que eram
+coisas diferentes!)}
+
+Eu gosto mais de escrever o código o mais \textbf{explícito} possível.
+Me confundo menos:
+
+\begin{itemize}
+\item
+  resumo da ópera, a diferença neste caso ocorreu na casa
+  \textbf{centesimal} da porcentagem (o que seria desprezível)
+\item
+  no entando, o de baixo deve ser considerado o resultado \textbf{real}
+  (o que usamos está ligeiramente distorcido pelas diversas entradas de
+  um mesmo usuário)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{n}{compras} \PY{o}{=} \PY{n}{dfdados}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{converted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{dfdados}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} index.duplicated()}
+          \PY{c+c1}{\PYZsh{}df3 = df3[\PYZti{}df3.index.duplicated(keep=\PYZsq{}first\PYZsq{})]}
+          \PY{n+nb}{len}\PY{p}{(}\PY{n}{compras}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aderiram em média }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ usuários (resultado mais preciso)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{compras}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Aderiram em média 0.1195695564793657 usuários (resultado mais preciso)
+
+    \end{Verbatim}
+
+    \hypertarget{parei-aqui}{%
+\paragraph{parei aqui}\label{parei-aqui}}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  The number of times the \texttt{new\_page} and \texttt{treatment}
+  don't line up.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{a} \PY{o}{=} \PY{n}{dfdados}\PY{p}{[}\PY{p}{(}\PY{n}{dfdados}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{treatment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{!=} \PY{p}{(}\PY{n}{dfdados}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{landing\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        \PY{n}{a}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                          timestamp      group landing\_page  converted
+user\_id                                                               
+767017   2017-01-12 22:58:14.991443    control     new\_page          0
+733976   2017-01-11 15:11:16.407599    control     new\_page          0
+857184   2017-01-20 07:34:59.832626  treatment     old\_page          0
+686623   2017-01-09 14:26:40.734775  treatment     old\_page          0
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 3893
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Do any of the rows have missing values?
+\end{enumerate}
+
+    \texttt{2.} For the rows where \textbf{treatment} is not aligned with
+\textbf{new\_page} or \textbf{control} is not aligned with
+\textbf{old\_page}, we cannot be sure if this row truly received the new
+or old page. Use \textbf{Quiz 2} in the classroom to provide how we
+should handle these rows.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Now use the answer to the quiz to create a new dataset that meets the
+  specifications from the quiz. Store your new dataframe in
+  \textbf{df2}.
+\end{enumerate}
+
+    \emph{Obs: já fiz isso lá em cima\ldots{} e também no projeto
+anterior\ldots{} e aprendi que isso é bastante enganador! Diria:
+\textbf{aparentemente} está tudo OK!, sem valores \textbf{NaN} pelo
+menos\ldots{}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{dfdados}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 294478 entries, 851104 to 715931
+Data columns (total 4 columns):
+timestamp       294478 non-null object
+group           294478 non-null object
+landing\_page    294478 non-null object
+converted       294478 non-null int64
+dtypes: int64(1), object(3)
+memory usage: 11.2+ MB
+
+    \end{Verbatim}
+
+    \emph{Nesses casos, aprendi que usar o método \textbf{sample()} é melhor
+do que \textbf{head()}\ldots{} posso rodar algumas vezes e pegar
+amostras diferentes\ldots{}}
+
+\emph{De onde eu tirei essa filtragem tão certinha? Foi só pular duas
+questões para frente e fazer minha adaptação!}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}dfaux1 = dfdados[(dfdados[\PYZsq{}group\PYZsq{}] == \PYZsq{}treatment\PYZsq{})]}
+        \PY{c+c1}{\PYZsh{}print(dfaux1.sample(4))}
+        \PY{c+c1}{\PYZsh{}dfaux2 = dfdados[(dfdados[\PYZsq{}landing\PYZus{}page\PYZsq{}] == \PYZsq{}new\PYZus{}page\PYZsq{})]}
+        \PY{c+c1}{\PYZsh{}print(dfaux1.sample(4))}
+        
+        \PY{n}{df2} \PY{o}{=} \PY{n}{dfdados}\PY{p}{[}\PY{p}{(}\PY{n}{dfdados}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{treatment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{==} \PY{p}{(}\PY{n}{dfdados}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{landing\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+        \PY{n}{df2}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}                           timestamp      group landing\_page  converted
+        user\_id                                                               
+        820700   2017-01-07 03:45:03.766567    control     old\_page          0
+        674677   2017-01-16 08:48:10.574350    control     old\_page          0
+        764835   2017-01-20 02:35:11.726104    control     old\_page          0
+        664579   2017-01-22 17:20:24.600227  treatment     new\_page          0
+        726330   2017-01-07 09:13:39.903017    control     old\_page          0
+        711230   2017-01-20 21:16:49.759821  treatment     new\_page          0
+        930187   2017-01-09 11:09:02.354602  treatment     new\_page          0
+        825080   2017-01-06 20:29:36.907516  treatment     new\_page          0
+        765102   2017-01-20 11:16:12.462369  treatment     new\_page          0
+        704329   2017-01-22 12:55:34.403475  treatment     new\_page          0
+\end{Verbatim}
+            
+    Ou seja, estão todos os valores \textbf{alinhados}:
+
+\emph{Eu vi um vídeo sobre \textbf{quarta normal} no Youtube e pelo que
+entendi, seria exatamente esta consistência, dados de uma coluna que
+dependem de valores de dados de outra coluna, num mesmo dataset.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Double Check all of the correct rows were removed \PYZhy{} this should be 0}
+        \PY{n}{df2}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{treatment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{==} \PY{p}{(}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{landing\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{k+kc}{False}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} 0
+\end{Verbatim}
+            
+    \texttt{3.} Use \textbf{df2} and the cells below to answer questions for
+\textbf{Quiz3} in the classroom.
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  How many unique \textbf{user\_id}s are in \textbf{df2}?
+\end{enumerate}
+
+    \emph{Minha coluna user\_id foi definida como meu índice!}
+
+\emph{Quando eu fiz isso, não atentei que poderia se tratar de um
+dataset problemático, em que uma chave pudesse aparecer mais de uma
+vez\ldots{} de qualquer maneira isso é um \textbf{defeito} e precisa ser
+limpo!}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Existem }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ IDs de usuários únicos}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Existem 290584 IDs de usuários únicos
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  There is one \textbf{user\_id} repeated in \textbf{df2}. What is it?
+\end{enumerate}
+
+    \emph{O valor emergiu como o primeiro na contagem!}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{contagem} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{sort}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(contagem)}
+        \PY{n}{IDrepetido} \PY{o}{=} \PY{n}{contagem}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O ID repetido :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{IDrepetido}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}for indice,dado in contagem:}
+        \PY{c+c1}{\PYZsh{}    if dado \PYZgt{} 1:}
+        \PY{c+c1}{\PYZsh{}        print(indice)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+O ID repetido : 773192
+
+    \end{Verbatim}
+
+    \hypertarget{section}{%
+\subsubsection{3/5}\label{section}}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  What is the row information for the repeat \textbf{user\_id}?
+\end{enumerate}
+
+    \emph{Invocando uma variável em filtro com @
+\href{https://stackoverflow.com/questions/23974664/unable-to-query-a-local-variable-in-pandas-0-14-0}{aqui}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}print (IDrepetido)}
+        
+        \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index == @IDrepetido}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}                           timestamp      group landing\_page  converted
+        user\_id                                                               
+        773192   2017-01-09 05:37:58.781806  treatment     new\_page          0
+        773192   2017-01-14 02:55:59.590927  treatment     new\_page          0
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Remove \textbf{one} of the rows with a duplicate \textbf{user\_id},
+  but keep your dataframe as \textbf{df2}.
+\end{enumerate}
+
+    \emph{Por que manter a última? Repare que as datas foram diferentes,
+talvez o cara tenha ido e \textbf{retornado}! Me parece que a data mais
+\textbf{atual} seria a melhor!}
+
+\emph{Embora isso não tenha adiantado muito. O sujeito visitou duas
+vezes a página mas não se ``converteu'', comprando nosso
+produto\ldots{}}
+
+\emph{Me enrolei um pouco, mas encontrei boas dicas
+\href{https://stackoverflow.com/questions/13035764/remove-rows-with-duplicate-indices-pandas-dataframe-and-timeseries}{aqui}}
+
+\emph{O operador lógico de \textbf{inversão \textasciitilde{}} indica
+que eu quero todos, ao contrário, do registro duplicado. Eu copiei num
+banco auxiliar para ter que evitar refazer as tarefas anteriores há cada
+vez que fazia um teste}
+
+\emph{Consegui este texto explicativo no Slack do curso: It is a unary
+operator (taking a single argument) that is borrowed from C, where all
+data types are just different ways of interpreting bytes. It is the
+``invert'' or ``complement'' operation, in which all the bits of the
+input data are reversed.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df3} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{df2}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{n}{keep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{last}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}df3 = df3[\PYZti{}df3.index.duplicated(keep=\PYZsq{}first\PYZsq{})]}
+        \PY{c+c1}{\PYZsh{}df2[df2.index.duplicated(keep= \PYZsq{}last\PYZsq{}), inplace=True]}
+        \PY{c+c1}{\PYZsh{}df2.drop\PYZus{}duplicates(subset=\PYZsq{}index\PYZsq{}, keep=\PYZsq{}last\PYZsq{}, inplace=True)}
+        \PY{c+c1}{\PYZsh{}df2 = df2[df2.index.duplicated(keep=\PYZsq{}first\PYZsq{})]}
+        
+        \PY{n}{df3}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index == 773192}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}teste no bandido}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}                           timestamp      group landing\_page  converted
+        user\_id                                                               
+        773192   2017-01-14 02:55:59.590927  treatment     new\_page          0
+\end{Verbatim}
+            
+    \emph{Copiando de volta ao lugar certo:}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df2} \PY{o}{=} \PY{n}{df3}
+        \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index == 773192}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}                           timestamp      group landing\_page  converted
+        user\_id                                                               
+        773192   2017-01-14 02:55:59.590927  treatment     new\_page          0
+\end{Verbatim}
+            
+    \emph{Para que este código com if? Se eu quiser mais tarde fazer uma
+função a partir disso, eu mudo o ``Passou'' para um}
+
+\begin{verbatim}
+return True
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{duplicatas} \PY{o}{=} \PY{n}{df3}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}duplicatas}
+         \PY{c+c1}{\PYZsh{}print(duplicatas)}
+         \PY{c+c1}{\PYZsh{}print(len(duplicatas))}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Verificando duplicatas :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{duplicatas}\PY{p}{[}\PY{n}{duplicatas} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{duplicatas}\PY{p}{[}\PY{n}{duplicatas} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Passou}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Verificando duplicatas : 0
+Passou
+
+    \end{Verbatim}
+
+    \hypertarget{parei-aqui}{%
+\paragraph{Parei aqui}\label{parei-aqui}}
+
+    \texttt{4.} Use \textbf{df2} in the below cells to answer the quiz
+questions related to \textbf{Quiz 4} in the classroom.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  What is the probability of an individual converting regardless of the
+  page they receive?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{}df2.head(4)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Média de conversões :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df2}\PY{o}{.}\PY{n}{converted}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Média de conversões : 0.11959667567149027
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Given that an individual was in the \texttt{control} group, what is
+  the probability they converted?
+\end{enumerate}
+
+    \emph{Sim, é um pouco mais alto\ldots{} e me parece bastante
+\textbf{pouca} a diferença\ldots{} mas na direção \textbf{errada}!}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{dfcontrole} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group == }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{control}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dfcontrole}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Média de conversões no Controle :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dfcontrole}\PY{o}{.}\PY{n}{converted}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                          timestamp    group landing\_page  converted
+user\_id                                                             
+851104   2017-01-21 22:11:48.556739  control     old\_page          0
+804228   2017-01-12 08:01:45.159739  control     old\_page          0
+864975   2017-01-21 01:52:26.210827  control     old\_page          1
+936923   2017-01-10 15:20:49.083499  control     old\_page          0
+Média de conversões no Controle : 0.1203863045004612
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Given that an individual was in the \texttt{treatment} group, what is
+  the probability they converted?
+\end{enumerate}
+
+    \emph{Desculpe-me, sou como Lázaro\ldots{} é necessário \textbf{ver}
+para \textbf{crer}\ldots{}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{dftratamento} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group == }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{treatment}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dftratamento}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Média de conversões no Tratamento :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dftratamento}\PY{o}{.}\PY{n}{converted}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                          timestamp      group landing\_page  converted
+user\_id                                                               
+661590   2017-01-11 16:55:06.154213  treatment     new\_page          0
+853541   2017-01-08 18:28:03.143765  treatment     new\_page          0
+679687   2017-01-19 03:26:46.940749  treatment     new\_page          1
+817355   2017-01-04 17:58:08.979471  treatment     new\_page          1
+Média de conversões no Tratamento : 0.11880806551510564
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  What is the probability that an individual received the new page?
+\end{enumerate}
+
+    \emph{Foi tipo: \textbf{metade-metade}\ldots{}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probabilidade de ser direcionado à páguna nova :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{landing\PYZus{}page} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}page}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Probabilidade de ser direcionado à páguna nova : 0.5000636646764286
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Consider your results from a. through d. above, and explain below
+  whether you think there is sufficient evidence to say that the new
+  treatment page leads to more conversions.
+\end{enumerate}
+
+    \textbf{Para mim parece não haver forte indicativo (indícios) de que a
+página nova realmente produziu mais conversões do que a antiga\ldots{}
+os resultados me parecem próximos demais\ldots{}}
+
+     \#\#\# Part II - A/B Test
+
+Notice that because of the time stamp associated with each event, you
+could technically run a hypothesis test continuously as each observation
+was observed.
+
+However, then the hard question is do you stop as soon as one page is
+considered significantly better than another or does it need to happen
+consistently for a certain amount of time? How long do you run to render
+a decision that neither page is better than another?
+
+These questions are the difficult parts associated with A/B tests in
+general.
+
+\texttt{1.} For now, consider you need to make the decision just based
+on all the data provided. If you want to assume that the old page is
+better unless the new page proves to be definitely better at a Type I
+error rate of 5\%, what should your null and alternative hypotheses be?
+You can state your hypothesis in terms of words or in terms of
+\textbf{\(p_{old}\)} and \textbf{\(p_{new}\)}, which are the converted
+rates for the old and new pages.
+
+    \(Hipótese_{zero} \rightarrow H_0: p_{new} - p_{old} \leq 0\) (a página
+\textbf{antiga} é tão boa ou melhor do que a nova para ``converter'')
+
+\(Hipótese_{alternativa} \rightarrow H_1: p_{new} - p_{old} > 0\) (a
+página \textbf{nova} é melhor para ``converter'' pessoas)
+
+\begin{itemize}
+\tightlist
+\item
+  Margem de confiança para erro \textbf{Tipo I} (falso positivo):
+  \textbf{5\%}
+\end{itemize}
+
+\emph{Nada como o bom \textbf{codificador LaTex} online
+\href{https://latex.codecogs.com/eqneditor/editor.php}{aqui}}
+
+    \texttt{2.} Assume under the null hypothesis, \(p_{new}\) and
+\(p_{old}\) both have ``true'' success rates equal to the
+\textbf{converted} success rate regardless of page - that is \(p_{new}\)
+and \(p_{old}\) are equal. Furthermore, assume they are equal to the
+\textbf{converted} rate in \textbf{ab\_data.csv} regardless of the page.
+
+Use a sample size for each page equal to the ones in
+\textbf{ab\_data.csv}.
+
+Perform the sampling distribution for the difference in
+\textbf{converted} between the two pages over 10,000 iterations of
+calculating an estimate from the null.
+
+Use the cells below to provide the necessary parts of this simulation.
+If this doesn't make complete sense right now, don't worry - you are
+going to work through the problems below to complete this problem. You
+can use \textbf{Quiz 5} in the classroom to make sure you are on the
+right track.
+
+    \hypertarget{parei-aqui}{%
+\paragraph{Parei aqui}\label{parei-aqui}}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  What is the \textbf{convert rate} for \(p_{new}\) under the null?
+\end{enumerate}
+
+    \emph{Qual é a condição \textbf{limite} de validade da \(H_0\)? É que a
+taxa de ``conversões'' da nova página é \textbf{igual} à da página
+anterior (ou seja, que a página nova será tão boa quanto a anterior).
+Então a \(p_{nova}\) será igual à \$p\_\{antiga\}. Assim, como não faz
+diferença se estamos na página nova ou antiga\ldots{}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{dfpnova} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{converted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Segundo a H0, a taxa de conversão para a página nova será :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dfpnova}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Segundo a H0, a taxa de conversão para a página nova será : 0.11959708724499628
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  What is the \textbf{convert rate} for \(p_{old}\) under the null? 
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{dfpvelha} \PY{o}{=} \PY{n}{dfpnova}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Segundo a H0, a taxa de conversão para a página antiga será :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dfpvelha}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Segundo a H0, a taxa de conversão para a página antiga será : 0.11959708724499628
+
+    \end{Verbatim}
+
+    \hypertarget{section}{%
+\subsubsection{4/5}\label{section}}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  What is \(n_{new}\)?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dfnovapagina} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{landing\PYZus{}page == }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{new\PYZus{}page}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dfnovapagina}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O número de acessos à nova página foi :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dfnovapagina}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                          timestamp      group landing\_page  converted
+user\_id                                                               
+896507   2017-01-07 01:14:35.009907    control     old\_page          1
+897948   2017-01-22 07:11:17.635813    control     old\_page          1
+658910   2017-01-07 07:37:06.500306  treatment     new\_page          0
+650570   2017-01-12 06:58:28.470289  treatment     new\_page          0
+                          timestamp      group landing\_page  converted
+user\_id                                                               
+778872   2017-01-08 15:39:37.019025  treatment     new\_page          0
+901156   2017-01-19 23:53:41.448477  treatment     new\_page          0
+O número de acessos à nova página foi : 145310
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  What is \(n_{old}\)?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{dfvelhapagina} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{landing\PYZus{}page == }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{old\PYZus{}page}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dfvelhapagina}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O número de acessos à nova página foi :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dfvelhapagina}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                          timestamp    group landing\_page  converted
+user\_id                                                             
+789160   2017-01-13 12:01:50.700659  control     old\_page          1
+874791   2017-01-22 22:11:24.799994  control     old\_page          0
+O número de acessos à nova página foi : 145274
+
+    \end{Verbatim}
+
+    \hypertarget{parei-aqui}{%
+\paragraph{Parei aqui}\label{parei-aqui}}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Simulate \(n_{new}\) transactions with a convert rate of \(p_{new}\)
+  under the null. Store these \(n_{new}\) 1's and 0's in
+  \textbf{new\_page\_converted}.
+\end{enumerate}
+
+    A ideia aqui é a seguinte. Eu tenho uma \textbf{estatística}, ou seja:
+
+\begin{itemize}
+\item
+  uma média
+\item
+  uma quantidade n de elementos
+\end{itemize}
+
+Supondo que eu não tivesse mais aquele dataset original. Eu posso
+reconstruir um similar, com suas mesmas características
+\textbf{estatísticas}. Em Física, chamaríamos isso de formatar um modelo
+\textbf{granular} a partir de determinadas equações ou condições de
+existência.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{}a minha semente de opções}
+         \PY{n}{nnova} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dfnovapagina}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(nnova)}
+         \PY{n}{pnova} \PY{o}{=} \PY{n}{dfpnova}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{new\PYZus{}page\PYZus{}converted} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{nnova}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pnova}\PY{p}{,} \PY{n}{pnova}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nova \PYZhy{} meu tamanho amostral original :}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{, reconstuído :}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{nnova}\PY{p}{,}
+                                                                                  \PY{n+nb}{len}\PY{p}{(}\PY{n}{new\PYZus{}page\PYZus{}converted}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Nova - meu tamanho amostral original :145310, reconstuído :145310
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Simulate \(n_{old}\) transactions with a convert rate of \(p_{old}\)
+  under the null. Store these \(n_{old}\) 1's and 0's in
+  \textbf{old\_page\_converted}.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{nvelha} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dfvelhapagina}\PY{p}{)}
+         \PY{n}{pvelha} \PY{o}{=} \PY{n}{dfpvelha}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{old\PYZus{}page\PYZus{}converted} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{nvelha}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pvelha}\PY{p}{,} \PY{n}{pvelha}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Velha \PYZhy{} meu tamanho amostral original:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{, reconstuído:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{nvelha}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{old\PYZus{}page\PYZus{}converted}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Velha - meu tamanho amostral original:145274, reconstuído:145274
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Find \(p_{new}\) - \(p_{old}\) for your simulated values from part (e)
+  and (f).
+\end{enumerate}
+
+    \emph{Observe que a simulação gerou uma diferença realmente
+\textbf{muito pequena}. Como estamos com o \textbf{random choice}
+aplicado, esta sempre se manterá igual. Mas se o desabilitarmos,
+poderíamos ver que esse número varia um pouco, podendo eventualmente
+\textbf{zerar}. Isso pode ser chamado de \textbf{ruído}. É mais ou menos
+assim\ldots{}}
+
+\emph{Eu não tenho certeza de onde este exercício irá levar, mas no
+curso (\textbf{M3, Aula 14}) o instrutor fala: ``\ldots{} \textbf{quanto
+mais coisas você testa, mais provável que você observe diferenças
+significativas, apenas pelo acaso. Isso acontece quando fazemos
+avaliações de várias métricas ao mesmo tempo. A probabilidade de falso
+positivo aumenta conforme você aumenta o número de métricas}\ldots{}''.
+Bom, o mesmo acontece quando você aumenta demais o número de
+amostragens\ldots{} o ruído começa a ser percebido pelo modelo como
+\textbf{significativo}, quando de fato náo é!}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{diff} \PY{o}{=} \PY{n}{new\PYZus{}page\PYZus{}converted}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{old\PYZus{}page\PYZus{}converted}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A diferença de probabilidades simuladas para minha nova e velha página é :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{diff}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A diferença de probabilidades simuladas para minha nova e velha página é : 0.000995769969952126
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Simulate 10,000 \(p_{new}\) - \(p_{old}\) values using this same
+  process similarly to the one you calculated in parts \textbf{a.
+  through g.} above. Store all 10,000 values in a numpy array called
+  \textbf{p\_diffs}.
+\end{enumerate}
+
+    \emph{Cuidado: isso demora muito para rodar!}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{embaralhador}\PY{p}{(}\PY{n}{nnova}\PY{p}{,} \PY{n}{nvelha}\PY{p}{,} \PY{n}{pnova}\PY{p}{,} \PY{n}{pvelha}\PY{p}{,} \PY{n}{tamanho}\PY{p}{,} \PY{n}{a}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+             \PY{n}{captadiff} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{tamanho}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{new\PYZus{}sample} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{nnova}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pnova}\PY{p}{,} \PY{n}{pnova}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{old\PYZus{}sample} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{nvelha}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pvelha}\PY{p}{,} \PY{n}{pvelha}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{captadiff}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}sample}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{old\PYZus{}sample}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{captadiff}\PY{p}{)}
+             
+         \PY{n}{nnova} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dfnovapagina}\PY{p}{)}
+         \PY{n}{pnova} \PY{o}{=} \PY{n}{dfpnova}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{nvelha} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dfvelhapagina}\PY{p}{)}
+         \PY{n}{pvelha} \PY{o}{=} \PY{n}{dfpvelha}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+             
+         \PY{n}{p\PYZus{}diffs} \PY{o}{=} \PY{n}{embaralhador}\PY{p}{(}\PY{n}{nnova}\PY{p}{,} \PY{n}{nvelha}\PY{p}{,} \PY{n}{pnova}\PY{p}{,} \PY{n}{pvelha}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{)}
+\end{Verbatim}
+
+
+    Pareceu OK:
+
+\begin{itemize}
+\tightlist
+\item
+  gerou uma lista com 10.000 posições em ponto flutuante, representando
+  as diferenças
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{p\PYZus{}diffs}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{p\PYZus{}diffs}\PY{p}{)}\PY{p}{)}
+          \PY{n}{p\PYZus{}diffs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-0.00065689 -0.00066359  0.0013392  {\ldots} -0.00073949  0.00032063
+ -0.00077361]
+10000
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}132}]:} -0.0006568860245934893
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{np}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matrizdiff.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{p\PYZus{}diffs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df2}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abdf2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usr\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{parei-aqui}{%
+\paragraph{Parei aqui}\label{parei-aqui}}
+
+    Truque do preguiçoso: busquei na documentação do numpy como gravar um
+binário com os valores gerados para continuar mais tarde\ldots{}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{p\PYZus{}diffs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matrizdiff.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{p\PYZus{}diffs}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} array([-0.00065689, -0.00066359,  0.0013392 , {\ldots}, -0.00073949,
+                 0.00032063, -0.00077361])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{df2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abdf2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:}   user\_id\textbackslash{}ttimestamp\textbackslash{}tgroup\textbackslash{}tlanding\_page\textbackslash{}tconverted
+         0  851104\textbackslash{}t2017-01-21 22:11:48.556739\textbackslash{}tcontrol\textbackslash{}to{\ldots}
+         1  804228\textbackslash{}t2017-01-12 08:01:45.159739\textbackslash{}tcontrol\textbackslash{}to{\ldots}
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  Plot a histogram of the \textbf{p\_diffs}. Does this plot look like
+  what you expected? Use the matching problem in the classroom to assure
+  you fully understand what was computed here.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkgrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{p\PYZus{}diffs}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histograma das p\PYZus{}diffs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZhy{}esse ; elimina aquela linha de chamada horrorosa}
+         
+         \PY{c+c1}{\PYZsh{}código descartado (eu posso precisar dele, se algo der errado!)}
+         \PY{c+c1}{\PYZsh{}plt.ioff()}
+         \PY{c+c1}{\PYZsh{}seaborn.distplot(a, bins=None, hist=True, kde=True, rug=False, fit=None, }
+         \PY{c+c1}{\PYZsh{}                 hist\PYZus{}kws=None, kde\PYZus{}kws=None, rug\PYZus{}kws=None, fit\PYZus{}kws=None}
+         \PY{c+c1}{\PYZsh{}                 color=None, vertical=False, norm\PYZus{}hist=False, axlabel=None, label=None, ax=None)}
+         
+         \PY{c+c1}{\PYZsh{}plt.hist(p\PYZus{}diffs) \PYZsh{}ficou horroroso, vamos para o Seaborn!}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_96_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Queremos a diferença da média de conversões ocorridas na página nova e
+na antiga:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{}fizemos essas coisas lá em cima...}
+         \PY{n}{dfnovo} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group == }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{treatment}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{medconvnovo} \PY{o}{=} \PY{n}{dfnovo}\PY{o}{.}\PY{n}{converted}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{dfvelho} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group == }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{control}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{medconvvelho} \PY{o}{=} \PY{n}{dfvelho}\PY{o}{.}\PY{n}{converted}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{diffobservada} \PY{o}{=} \PY{n}{medconvnovo} \PY{o}{\PYZhy{}} \PY{n}{medconvvelho}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{diffobservada}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}plt.axvline(x=obs\PYZus{}diff, color=\PYZsq{}red\PYZsq{});}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{diffobservada}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-0.0015790565976871451
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_98_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Juntando as coisas\ldots{}
+
+\emph{Bom, eu espeava essa linha verde aí bem no \textbf{centro} da
+minha curva de distribuição normal\ldots{}}
+
+\emph{Pensando bem, o azulzinho veio de uma simulação computacional, o
+verdinho veio de um outro dataset, que é o do experimento real\ldots{}}
+
+\emph{Se eu não estivesse com meu gerador de números aleatórios travado
+em um set de geração, eu aposto como se se fosse rodando esta simulação
+várias vezes, iria ver essa barra verde ``passeando'' pelo gráfico de
+distribuição normal\ldots{} eu posso dizer que sei qual é o problema
+aqui: é \textbf{ruído}! Estou lidando com um conjunto de amostras
+\textbf{muito grande} e como dito em aula, o ruído pode nos pregar
+alguns truques!}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\emph{A propósito, ando penando mais do que esperava para gerar meus
+gráficos\ldots{} então estou adquirindo o tutorial da Datacamp de
+plotagens no Seaborn (o Pyplot sempre me deu surpresas horríveis!)}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{bsns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkgrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{p\PYZus{}diffs}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histograma das p\PYZus{}diffs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{diffobservada}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_100_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  What proportion of the \textbf{p\_diffs} are greater than the actual
+  difference observed in \textbf{ab\_data.csv}?
+\end{enumerate}
+
+    Isso daqui tem cara de \textbf{valor-p}\ldots{}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{p}{(}\PY{n}{p\PYZus{}diffs} \PY{o}{\PYZgt{}} \PY{n}{diffobservada}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:} 0.9106
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{10}
+\tightlist
+\item
+  In words, explain what you just computed in part \textbf{j.} What is
+  this value called in scientific studies? What does this value mean in
+  terms of whether or not there is a difference between the new and old
+  pages?
+\end{enumerate}
+
+    Primeiro, com relação a \textbf{Teste de hipóteses estatísticas}, existe
+o conceito de:
+
+\begin{itemize}
+\item
+  \textbf{Nível de significância} que é a probabilidade de se observar
+  resultados amostrais tão ou mais extremos do que aqueles observados,
+  considerando-se \(H_{0}\) verdadeira (nossa \textbf{premissa
+  inicial}). Se esta probabilidade for pequena, concluímos que há provas
+  suficientes para rejeitar \(H_{0}\). Para isso a abordagem:
+\item
+  \textbf{Nível de significância observado - }valor-P**
+
+  \begin{itemize}
+  \item
+    \textbf{primeiro} a estatística teste é calculada usando-se dado
+    amostral
+  \item
+    \textbf{então} a distribuição de probabilidade apropriada é usada
+    para encontrar a probabilide de se observar uma estatística amostral
+    que seja pelo menos \textbf{um pouco} diferente do valor da
+    \(H_{0}\) para o parâmetro populacional (\textbf{valor-P})
+  \item
+    (lembrando que quanto **menor o valor-p, melhor a prova contra
+    \(H_{0}\)
+  \end{itemize}
+\end{itemize}
+
+(fonte: \textbf{Resumão de Estatística} (texto ligeiramente modificado)
+- nada como uma visita na Livraria Cultura no feriadão do
+Carnaval\ldots{})
+
+Bom, o valor-p foi calculado, apontando a proporção dos valores da
+distribuição nula que foram maiores do que a diferença observada nos
+dados reais.
+
+Meu valor-p ficou \textbf{bem acima} da nossa taxa de aceitação de 5\%
+esperado para erro do Tipo I (\textbf{falso positivo}, ou
+\textbf{rejeitar} a \$H\_\{0\}, sendo ela \textbf{verdadeira}).
+
+Assim podemos afirmar que:
+
+\begin{itemize}
+\item
+  falhamos em rejeitar a \$H\_\{0\}
+\item
+  não há evidências que comprovem que a nova página produz mais
+  conversões do que a primeira
+\end{itemize}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{11}
+\tightlist
+\item
+  We could also use a built-in to achieve similar results. Though using
+  the built-in might be easier to code, the above portions are a
+  walkthrough of the ideas that are critical to correctly thinking about
+  statistical significance. Fill in the below to calculate the number of
+  conversions for each page, as well as the number of individuals who
+  received each page. Let \texttt{n\_old} and \texttt{n\_new} refer the
+  the number of rows associated with the old page and new pages,
+  respectively.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{dfnovo2} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{landing\PYZus{}page == }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{new\PYZus{}page}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{medconvnovo} \PY{o}{=} \PY{n}{dfnovo2}\PY{o}{.}\PY{n}{converted}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{dfvelho2} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{landing\PYZus{}page == }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{old\PYZus{}page}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{medconvvelho} \PY{o}{=} \PY{n}{dfvelho2}\PY{o}{.}\PY{n}{converted}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{convert\PYZus{}new} \PY{o}{=} \PY{n}{dfnovo2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{converted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{convert\PYZus{}old} \PY{o}{=} \PY{n}{dfvelho2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{converted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Convertidos \PYZhy{} antiga :}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ nova :}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{convert\PYZus{}old}\PY{p}{,} \PY{n}{convert\PYZus{}new}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{n\PYZus{}new} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dfnovo2}\PY{p}{)}
+         \PY{n}{n\PYZus{}old} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dfvelho2}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Acessos \PYZhy{} antiga :}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ nova :}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}old}\PY{p}{,} \PY{n}{n\PYZus{}new}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Convertidos - antiga :17489 nova :17264
+Acessos - antiga :145274 nova :145310
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{12}
+\tightlist
+\item
+  Now use \texttt{stats.proportions\_ztest} to compute your test
+  statistic and p-value.
+  \href{http://knowledgetack.com/python/statsmodels/proportions_ztest/}{Here}
+  is a helpful link on using the built in.
+\end{enumerate}
+
+    O link indicado não funciona, o site não existe mais! Mas no
+Statsmodels, encontrei
+\href{https://www.statsmodels.org/dev/generated/statsmodels.stats.proportion.proportions_ztest.html}{aqui}
+algumas dicas bastante claras sobre o uso do método
+\textbf{proportions\_ztest()}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{verbatim}
+    .stats.proportions_ztest(count, nobs, value=None, alternative='two-sided', prop_var=False)
+\end{verbatim}
+
+\begin{itemize}
+\item
+  \textbf{count} -- the number of successes in nobs trials. If this is
+  array\_like, then the assumption is that this represents the number of
+  successes for each independent sample
+\item
+  \textbf{nobs} -- the number of trials or observations, with the same
+  length as count
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\item
+  \textbf{alternative} -- The alternative hypothesis can be either
+  two-sided (\textbf{não é meu caso}) or one of the one-sided tests
+\item
+  In the two sample test:
+\item
+  smaller means that the alternative hypothesis is \textbf{prop
+  \textless{} value} (p1 \textless{} p2) (\textbf{não quero isso})
+\item
+  larger means \textbf{prop \textgreater{} value} (p1 \textgreater{} p2
+  - where p1 is the proportion of the first sample and p2 of the second
+  one)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Returns:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{zstat} -- test statistic for the z-test
+\item
+  \textbf{p-value} -- p-value for the z-test
+\end{itemize}
+
+\emph{Fonte: Statsmodels (levemente adaptado para meu contexto)}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{norm}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}sm.stats.proportion.proportions\PYZus{}ztest(count, nobs, }
+         \PY{c+c1}{\PYZsh{}                                      value=None, alternative=\PYZsq{}two\PYZhy{}sided\PYZsq{}, prop\PYZus{}var=False}
+         \PY{n}{valores} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{proportions\PYZus{}ztest}\PY{p}{(}\PY{p}{[}\PY{n}{convert\PYZus{}new}\PY{p}{,} \PY{n}{convert\PYZus{}old}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{n\PYZus{}new}\PY{p}{,} \PY{n}{n\PYZus{}old}\PY{p}{]}\PY{p}{,} 
+                                              \PY{n}{alternative}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{larger}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}isso me traz uma tupla (teste\PYZhy{}z, valor\PYZhy{}p)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{teste z (unicaudal): }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{valores}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valor\PYZhy{}p (unicaudal): }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{valores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+teste z (unicaudal):  -1.3109241984234394
+valor-p (unicaudal):  0.9050583127590245
+
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Isso tem a ver com \textbf{Estatística-T}
+
+Dada uma curva de distribuição \textbf{normal}, nós podemos inferir
+áreas sob esta curva, cruzadas por pontos de probabilizade \(z\).
+
+*Antigamente tínhamos tabelas para fazer isso. Então eu peguei o meu
+\textbf{Resumão de Estatística}, coloquei lá \textbf{Teste Unicaudal},
+com \textbf{Nível de Significância A = 0.05} (este A me diz que é um
+teste \textbf{unilateral}, ou \textbf{unicaudal}). Muito bem, eu quero a
+rabeira da curva, com \textbf{GL = inf} (graus de liberdade infinitos,
+ou maior do que 30) e chego a:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\alpha = 1.645\)
+\end{itemize}
+
+\hypertarget{como-calcular-valores-cruxedticos}{%
+\paragraph{Como calcular valores
+críticos}\label{como-calcular-valores-cruxedticos}}
+
+\textbf{Cumulative Density Function (CDF)}: Returns the probability for
+an observation equal to or lesser than a specific value from the
+distribution.
+
+\textbf{Percent Point Function (PPF)}: Returns the observation value for
+the provided probability that is less than or equal to the provided
+probability from the distribution (o contrário do CDF - é o que eu
+procuro!)
+
+\emph{Conceitos encontrados
+\href{https://machinelearningmastery.com/critical-values-for-statistical-hypothesis-testing/}{aqui}}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{estatistica} \PY{o}{=} \PY{l+m+mf}{0.95}
+          \PY{n}{alpha} \PY{o}{=} \PY{n}{norm}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{n}{estatistica}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alfa: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+alfa:  1.6448536269514722
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{13}
+\tightlist
+\item
+  What do the z-score and p-value you computed in the previous question
+  mean for the conversion rates of the old and new pages? Do they agree
+  with the findings in parts \textbf{j.} and \textbf{k.}?
+\end{enumerate}
+
+    Eu tenho:
+
+\begin{itemize}
+\item
+  um teste \textbf{unicaudal}
+\item
+  um \(\alpha=1.645\) (meu valor crítico para este teste)
+\end{itemize}
+
+Eu tive comos resultados:
+
+\begin{itemize}
+\item
+  Escore-Z de \textbf{-1.31} (abaixo do meu \(\alpha\) - e localizado
+  \textbf{antes} do meu ponto central da distribuição normal)
+\item
+  Valor-P de \textbf{0.91} (acima de 0.05, ou 5\%)
+\end{itemize}
+
+Com estes resultados, novamente \textbf{falhamos} em rejeitar \(H_{0}\)
+
+Em outras palavras, \(H_{0}\) continua \textbf{válida}, ou seja, que a
+página \textbf{anterior} era \textbf{tão boa} (ou até melhor) do que a
+página \textbf{nova}, em produzir conversões.
+
+    \hypertarget{parei-aqui}{%
+\paragraph{Parei aqui}\label{parei-aqui}}
+
+    \hypertarget{section}{%
+\subsubsection{5/5}\label{section}}
+
+ \#\#\# Part III - A regression approach
+
+\texttt{1.} In this final part, you will see that the result you
+acheived in the previous A/B test can also be acheived by performing
+regression.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Since each row is either a conversion or no conversion, what type of
+  regression should you be performing in this case?
+\end{enumerate}
+
+    Segundo o curso, a regressão que melhor se adapta à conversão de {[}0,
+1{]}, tipo sim/não é a regressão \textbf{logística}. O que faz sentido,
+pois ela é altamente \textbf{dispersiva}, ou seja, qualquer afastamento
+do seu núcleo central leva a uma decisão. No caso, o sim/não pode ser
+interpretado como uma variável \textbf{categórica}
+
+Uma explicação melhor para variáveis dummie se encontra {[}aqui{]}.
+Historicamente, máquinas de \textbf{babbage} eram programadas com fitas
+perfuradas (na verdade eram teares automatizados). Quando você tem uma
+categoria com n tipos diferentes, matematicamente a melhor forma é
+tratar cada tipo como sendo uma \textbf{feição} diferente. Assim,
+testa-se uma a uma quais as alterações que ela causa no nosso modelo.
+Faz sentido.
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  The goal is to use \textbf{statsmodels} to fit the regression model
+  you specified in part \textbf{a.} to see if there is a significant
+  difference in conversion based on which page a customer receives.
+\end{enumerate}
+
+However, you first need to
+
+\begin{itemize}
+\item
+  create a column for the intercept, and
+\item
+  create a dummy variable column for which page each user received.
+\end{itemize}
+
+Add an \textbf{intercept} column, as well as an \textbf{ab\_page}
+column, which is
+
+\begin{itemize}
+\item
+  1 when an individual receives the \textbf{treatment} and
+\item
+  0 if \textbf{control}.
+\end{itemize}
+
+    Eu preciso criar a variável dummie, com 0 para \textbf{control} e 1 para
+\textbf{treatment}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{}df[[\PYZsq{}no\PYZus{}fraud\PYZsq{}, \PYZsq{}fraud\PYZsq{}]] = pd.get\PYZus{}dummies(df[\PYZsq{}fraud\PYZsq{}])}
+         \PY{c+c1}{\PYZsh{}df = df.drop(\PYZsq{}no\PYZus{}fraud\PYZsq{}, axis = 1)}
+         
+         \PY{n}{df2}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{control}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{treatment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}                           timestamp      group landing\_page  converted  \textbackslash{}
+         user\_id                                                                  
+         851104   2017-01-21 22:11:48.556739    control     old\_page          0   
+         804228   2017-01-12 08:01:45.159739    control     old\_page          0   
+         661590   2017-01-11 16:55:06.154213  treatment     new\_page          0   
+         853541   2017-01-08 18:28:03.143765  treatment     new\_page          0   
+         
+                  control  treatment  
+         user\_id                      
+         851104         1          0  
+         804228         1          0  
+         661590         0          1  
+         853541         0          1  
+\end{Verbatim}
+            
+    Para não dar sobrevinculação, eu posso remover uma das minhas dummies:
+
+\begin{itemize}
+\tightlist
+\item
+  no caso, \textbf{control}, pois \textbf{treatment} se alinha para o
+  que queremos na nossa \textbf{ab\_page}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{df2} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{control}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}                           timestamp      group landing\_page  converted  \textbackslash{}
+         user\_id                                                                  
+         851104   2017-01-21 22:11:48.556739    control     old\_page          0   
+         804228   2017-01-12 08:01:45.159739    control     old\_page          0   
+         661590   2017-01-11 16:55:06.154213  treatment     new\_page          0   
+         853541   2017-01-08 18:28:03.143765  treatment     new\_page          0   
+         
+                  treatment  
+         user\_id             
+         851104           0  
+         804228           0  
+         661590           1  
+         853541           1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{df2}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{converted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ab\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:}                             user\_id  timestamp     group  converted  ab\_page
+         user\_id                                                                     
+         851104   2017-01-21 22:11:48.556739    control  old\_page          0        0
+         804228   2017-01-12 08:01:45.159739    control  old\_page          0        0
+         661590   2017-01-11 16:55:06.154213  treatment  new\_page          0        1
+         853541   2017-01-08 18:28:03.143765  treatment  new\_page          0        1
+\end{Verbatim}
+            
+    Adicionar o intercept:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intercept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}                             user\_id  timestamp     group  converted  ab\_page  \textbackslash{}
+         user\_id                                                                        
+         851104   2017-01-21 22:11:48.556739    control  old\_page          0        0   
+         804228   2017-01-12 08:01:45.159739    control  old\_page          0        0   
+         661590   2017-01-11 16:55:06.154213  treatment  new\_page          0        1   
+         853541   2017-01-08 18:28:03.143765  treatment  new\_page          0        1   
+         
+                  intercept  
+         user\_id             
+         851104           1  
+         804228           1  
+         661590           1  
+         853541           1  
+\end{Verbatim}
+            
+    Não use esta linha: (apenas para corrigir erros!)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{df2} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intercept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Use \textbf{statsmodels} to import your regression model.
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Instantiate the model, and
+\item
+  fit the model using the two columns you created in part \textbf{b.} to
+  predict whether or not an individual converts.
+\end{itemize}
+
+    Instanciando:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{}sm.Logit(df[\PYZsq{}fraud\PYZsq{}], axis=1) \PYZsh{}o primeiro argumento é a resposta}
+         \PY{c+c1}{\PYZsh{}logit\PYZus{}mod = sm.Logit(df[\PYZsq{}fraud\PYZsq{}], df[[\PYZsq{}intercept\PYZsq{}, \PYZsq{}duration\PYZsq{}]])}
+         
+         \PY{c+c1}{\PYZsh{}sm.Logit(df2[\PYZsq{}converted\PYZsq{}], axis=1)}
+         \PY{n}{modlog} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{Logit}\PY{p}{(}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{converted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df2}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intercept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ab\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    Ajustando:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{results} \PY{o}{=} \PY{n}{modlog}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{results}\PY{o}{.}\PY{n}{summary}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Optimization terminated successfully.
+         Current function value: 0.366118
+         Iterations 6
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} <bound method BinaryResults.summary of <statsmodels.discrete.discrete\_model.LogitResults object at 0x0000021B8511F518>>
+\end{Verbatim}
+            
+    Lembretes da aula de logística: (não devo rodar estas linhas)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} eu preciso exponenciar o coeficiente da duração}
+        \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.4637}\PY{p}{)} \PY{c+c1}{\PYZsh{}para cada unidade aumentada na duração, fraude é 0.23 mais provável}
+        
+        \PY{c+c1}{\PYZsh{}o recíproco}
+        \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.4637}\PY{p}{)} \PY{c+c1}{\PYZsh{}4.32 vezes menos provável para cada unidade diminuída na duração}
+        
+        \PY{c+c1}{\PYZsh{}e o do weekday}
+        \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mf}{2.5465}\PY{p}{)} \PY{c+c1}{\PYZsh{}12.75 vezes mais comum nos dias de semana do que nos finais de semana}
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Provide the summary of your model below, and use it as necessary to
+  answer the following questions.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} <class 'statsmodels.iolib.summary.Summary'>
+         """
+                                    Logit Regression Results                           
+         ==============================================================================
+         Dep. Variable:              converted   No. Observations:               290584
+         Model:                          Logit   Df Residuals:                   290582
+         Method:                           MLE   Df Model:                            1
+         Date:                Thu, 07 Mar 2019   Pseudo R-squ.:               8.077e-06
+         Time:                        22:06:48   Log-Likelihood:            -1.0639e+05
+         converged:                       True   LL-Null:                   -1.0639e+05
+                                                 LLR p-value:                    0.1899
+         ==============================================================================
+                          coef    std err          z      P>|z|      [0.025      0.975]
+         ------------------------------------------------------------------------------
+         intercept     -1.9888      0.008   -246.669      0.000      -2.005      -1.973
+         ab\_page       -0.0150      0.011     -1.311      0.190      -0.037       0.007
+         ==============================================================================
+         """
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  What is the p-value associated with \textbf{ab\_page}? Why does it
+  differ from the value you found in \textbf{Part II}? \textbf{Hint}:
+  What are the null and alternative hypotheses associated with your
+  regression model, and how do they compare to the null and alternative
+  hypotheses in the \textbf{Part II}?
+\end{enumerate}
+
+    Para a coluna \textbf{ab\_page}, obtive um valor-p de 0.19\ldots{} ele é
+diferente do valor encontrado no exercício anterior?
+
+Sim, mas são metodologias diferentes. Lá usávamos um \textbf{encaixe}
+unicaudal. Aqui ele é bicaudal.
+
+    Encontrei na Internet um exemplo de simulação de teste-Z bicaudal:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{resultados} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{proportions\PYZus{}ztest}\PY{p}{(}\PY{p}{[}\PY{n}{convert\PYZus{}new}\PY{p}{,} \PY{n}{convert\PYZus{}old}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{n\PYZus{}new}\PY{p}{,} \PY{n}{n\PYZus{}old}\PY{p}{]}\PY{p}{)}
+         \PY{n}{alpha} \PY{o}{=} \PY{n}{norm}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{escore\PYZhy{}z: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n}{resultados}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valor\PYZhy{}p: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n}{resultados}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alfa: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n}{alpha}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+escore-z:  -1.3109241984234394
+valor-p:  0.18988337448195103
+alfa:  1.959963984540054
+
+    \end{Verbatim}
+
+    A mesma conclusão: a coluna \textbf{ab\_page} não parece ``explicar''
+nossas \textbf{conversões}\ldots{}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Now, you are considering other things that might influence whether or
+  not an individual converts. Discuss why it is a good idea to consider
+  other factors to add into your regression model. Are there any
+  disadvantages to adding additional terms into your regression model?
+\end{enumerate}
+
+    Às vezes a adição de outras \textbf{feições} (perfil etário, conversões
+anteriores - identificar se a pessoa já é cliente, grupos de interesse)
+podem influenciar as decisões atuais, de converter ou não. Um modelo
+suficientemente rico, mas não rico o suficiente para tentar ``modelizar
+tudo'' parece ser o que produz os mehores resultados.
+
+Agora imagine que eu vá adicionando novas e novas feições a meu modelo.
+E coisas como a cor da camisa, ou o modelo da bicicleta, ou se a pessoa
+costuma passar o feriado de final de ano na praia\ldots{} espere, isso é
+\textbf{realmente} relevante?
+
+Às vezes não. Algumas pessoas que compram aquele automóvel com ar
+condicionado usam camisa branca, outros de lista\ldots{} e no nós temos
+um monstro com n feições e muitas delas com \textbf{valor-p}
+elevado\ldots{}
+
+Num mundo ideal eu poderia ter montes e montes de entulho (desde que
+minha casa fosse realmente grande). Mas na prática o que acontece? Essas
+coisas vão me gerando \textbf{ruído} e distorcendo o modelo e logo eu
+passo a recomendar que vendedores insistam em vender o \textbf{ar
+condicionado}, caso o meu cliente esteja vestindo a \textbf{camisa
+branca}\ldots{} o que é isso no fundo? O surgimento de um \textbf{falso
+positivo} e que pode me colocar em situações realmente
+constrangedoras\ldots{}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Now along with testing if the conversion rate changes for different
+  pages, also add an effect based on which country a user lives. You
+  will need to read in the \textbf{countries.csv} dataset and merge
+  together your datasets on the approporiate rows.
+  \href{https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.join.html}{Here}
+  are the docs for joining tables.
+\end{enumerate}
+
+Does it appear that country had an impact on conversion? Don't forget to
+create dummy variables for these country columns - \textbf{Hint: You
+will need two columns for the three dummy variables.} Provide the
+statistical output as well as a written response to answer this
+question.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abdf2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{dfpaises} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./countries.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{dfnovopaises} \PY{o}{=} \PY{n}{dfpaises}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{df2}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{dfnovopaises}\PY{o}{.}\PY{n}{country}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} US    203619
+         UK     72466
+         CA     14499
+         Name: country, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{dfnovopaises}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}         country                   timestamp      group landing\_page  converted
+         user\_id                                                                       
+         834778       UK  2017-01-14 23:08:43.304998    control     old\_page          0
+         928468       US  2017-01-23 14:44:16.387854  treatment     new\_page          0
+         822059       UK  2017-01-16 14:04:14.719771  treatment     new\_page          1
+         711597       UK  2017-01-22 03:14:24.763511    control     old\_page          0
+\end{Verbatim}
+            
+    Criando as variáveis dummie:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{dfnovopaises2} \PY{o}{=} \PY{n}{dfnovopaises}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{dfnovopaises}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}         country                   timestamp      group landing\_page  \textbackslash{}
+         user\_id                                                               
+         834778       UK  2017-01-14 23:08:43.304998    control     old\_page   
+         928468       US  2017-01-23 14:44:16.387854  treatment     new\_page   
+         822059       UK  2017-01-16 14:04:14.719771  treatment     new\_page   
+         711597       UK  2017-01-22 03:14:24.763511    control     old\_page   
+         
+                  converted  CA  UK  US  
+         user\_id                         
+         834778           0   0   1   0  
+         928468           0   0   0   1  
+         822059           1   0   1   0  
+         711597           0   0   1   0  
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Though you have now looked at the individual factors of country and
+  page on conversion, we would now like to look at an interaction
+  between page and country to see if there significant effects on
+  conversion. Create the necessary additional columns, and fit the new
+  model.
+\end{enumerate}
+
+Provide the summary results, and your conclusions based on the results.
+
+    Jogando fora uma das dummies para não dar \textbf{sobrevinculação}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{dfnovopaises2} \PY{o}{=} \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{US}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}         country                   timestamp      group landing\_page  \textbackslash{}
+         user\_id                                                               
+         834778       UK  2017-01-14 23:08:43.304998    control     old\_page   
+         928468       US  2017-01-23 14:44:16.387854  treatment     new\_page   
+         822059       UK  2017-01-16 14:04:14.719771  treatment     new\_page   
+         711597       UK  2017-01-22 03:14:24.763511    control     old\_page   
+         
+                  converted  CA  UK  
+         user\_id                     
+         834778           0   0   1  
+         928468           0   0   0  
+         822059           1   0   1  
+         711597           0   0   1  
+\end{Verbatim}
+            
+    Criando o intercept:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{dfnovopaises2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intercept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}         country                   timestamp      group landing\_page  \textbackslash{}
+         user\_id                                                               
+         834778       UK  2017-01-14 23:08:43.304998    control     old\_page   
+         928468       US  2017-01-23 14:44:16.387854  treatment     new\_page   
+         822059       UK  2017-01-16 14:04:14.719771  treatment     new\_page   
+         711597       UK  2017-01-22 03:14:24.763511    control     old\_page   
+         
+                  converted  CA  UK  intercept  
+         user\_id                                
+         834778           0   0   1          1  
+         928468           0   0   0          1  
+         822059           1   0   1          1  
+         711597           0   0   1          1  
+\end{Verbatim}
+            
+    Não use: (só se precisar!)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{dfnovopaises2} \PY{o}{=} \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intercept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}         country                   timestamp      group landing\_page  \textbackslash{}
+         user\_id                                                               
+         834778       UK  2017-01-14 23:08:43.304998    control     old\_page   
+         928468       US  2017-01-23 14:44:16.387854  treatment     new\_page   
+         822059       UK  2017-01-16 14:04:14.719771  treatment     new\_page   
+         711597       UK  2017-01-22 03:14:24.763511    control     old\_page   
+         
+                  converted  CA  UK  
+         user\_id                     
+         834778           0   0   1  
+         928468           0   0   0  
+         822059           1   0   1  
+         711597           0   0   1  
+\end{Verbatim}
+            
+    Claro que eu me esqueci do principal:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{dfnovopaises2}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{control}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{treatment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{dfnovopaises2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{dfnovopaises2} \PY{o}{=} \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{control}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}         country                   timestamp      group landing\_page  \textbackslash{}
+         user\_id                                                               
+         834778       UK  2017-01-14 23:08:43.304998    control     old\_page   
+         928468       US  2017-01-23 14:44:16.387854  treatment     new\_page   
+         822059       UK  2017-01-16 14:04:14.719771  treatment     new\_page   
+         711597       UK  2017-01-22 03:14:24.763511    control     old\_page   
+         
+                  converted  CA  UK  treatment  
+         user\_id                                
+         834778           0   0   1          0  
+         928468           0   0   0          1  
+         822059           1   0   1          1  
+         711597           0   0   1          0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{landing\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{converted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ab\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}         country                   timestamp      group landing\_page  \textbackslash{}
+         user\_id                                                               
+         834778       UK  2017-01-14 23:08:43.304998    control     old\_page   
+         928468       US  2017-01-23 14:44:16.387854  treatment     new\_page   
+         822059       UK  2017-01-16 14:04:14.719771  treatment     new\_page   
+         711597       UK  2017-01-22 03:14:24.763511    control     old\_page   
+         
+                  converted  CA  UK  ab\_page  
+         user\_id                              
+         834778           0   0   1        0  
+         928468           0   0   0        1  
+         822059           1   0   1        1  
+         711597           0   0   1        0  
+\end{Verbatim}
+            
+    Agora sim:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{dfnovopaises2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intercept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{dfnovopaises2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}         country                   timestamp      group landing\_page  \textbackslash{}
+         user\_id                                                               
+         834778       UK  2017-01-14 23:08:43.304998    control     old\_page   
+         928468       US  2017-01-23 14:44:16.387854  treatment     new\_page   
+         822059       UK  2017-01-16 14:04:14.719771  treatment     new\_page   
+         711597       UK  2017-01-22 03:14:24.763511    control     old\_page   
+         
+                  converted  CA  UK  ab\_page  intercept  
+         user\_id                                         
+         834778           0   0   1        0          1  
+         928468           0   0   0        1          1  
+         822059           1   0   1        1          1  
+         711597           0   0   1        0          1  
+\end{Verbatim}
+            
+    Instanciando:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{modlog2} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{Logit}\PY{p}{(}\PY{n}{dfnovopaises2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{converted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{dfnovopaises2}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intercept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ab\PYZus{}page}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    Ajustando:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{resultados2} \PY{o}{=} \PY{n}{modlog2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Optimization terminated successfully.
+         Current function value: 0.366113
+         Iterations 6
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{resultados2}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} <class 'statsmodels.iolib.summary.Summary'>
+         """
+                                    Logit Regression Results                           
+         ==============================================================================
+         Dep. Variable:              converted   No. Observations:               290584
+         Model:                          Logit   Df Residuals:                   290580
+         Method:                           MLE   Df Model:                            3
+         Date:                Thu, 07 Mar 2019   Pseudo R-squ.:               2.323e-05
+         Time:                        23:10:31   Log-Likelihood:            -1.0639e+05
+         converged:                       True   LL-Null:                   -1.0639e+05
+                                                 LLR p-value:                    0.1760
+         ==============================================================================
+                          coef    std err          z      P>|z|      [0.025      0.975]
+         ------------------------------------------------------------------------------
+         intercept     -1.9893      0.009   -223.763      0.000      -2.007      -1.972
+         ab\_page       -0.0149      0.011     -1.307      0.191      -0.037       0.007
+         CA            -0.0408      0.027     -1.516      0.130      -0.093       0.012
+         UK             0.0099      0.013      0.743      0.457      -0.016       0.036
+         ==============================================================================
+         """
+\end{Verbatim}
+            
+    Adicionamos todas duas novas \textbf{dimensões} ao nosso modelo,
+acrescentando a informação de \textbf{países}. Parece pouco? Pense que
+se formos adicionando e adicionando novas dimensões, qual a complexidade
+(e o ruído produzido) que atingiremos.
+
+Se a dimensão fosse \textbf{relevante}, OK. Mas ao que parece, valor-p
+acima do crítico de 5\% mostra que as novas feições não ajudaram a
+explicar o fenômeno das conversões. Então neste caso, recomenda-se
+\textbf{não manter} as novas feições, vindas da informação de
+\textbf{países}.
+
+Resumo da ópera: nem a mudança de página, da antiga para a nova, nem o
+fato do usuário ter vindo de CA ou de UK parece explicar o fenômeno das
+\textbf{conversões}.
+
+    \hypertarget{conclusions}{%
+\subsection{Conclusions}\label{conclusions}}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \hypertarget{conclusuxe3o-geral}{%
+\paragraph{Conclusão geral}\label{conclusuxe3o-geral}}
+
+Com relação aos testes realizados, não houve evidência suficiente para
+rejeitar a hipótese nula e as regressões feitas com relação à conversões
+não parecem ser expicadas pela criação da nova página. Segundo os testes
+aplicados, a nova página não deveria ser colocada em produção. Testado
+por:
+
+\begin{itemize}
+\item
+  distribuição amostral
+\item
+  regressão logarítmica
+\end{itemize}
+
+\hypertarget{possuxedveis-distoruxe7uxf5es}{%
+\paragraph{Possíveis distorções}\label{possuxedveis-distoruxe7uxf5es}}
+
+Os testes podem ter sofrido algumas \textbf{distorções} que poderiam
+alterar seus resultados (efeito do tempo, efeito da novidade, etc..)
+
+Ao invés de apenas citar potenciais \textbf{distorções}, citando as da
+classe, resolvi criar uma lista bastante complexa de fenômenos que
+poderiam gerar distorções. E algumas delas podem ser muito benéficas
+para nossa nova estrutura. Isso extrapola o conteúdo dos testes A/B e se
+baseia fortemente em estudos de \textbf{Teoria Geral de Sistemas} e em
+\textbf{Cibernética}. Seguem alguns deles (dos fáceis aos mais complexos
+para o final):
+
+\begin{itemize}
+\item
+  \textbf{grupo de usuários que realizou os testes pode não ter sido o
+  mesmo do que o grupo de usuários que irá fazer a compra}. Às vezes
+  empresas colocam seus próprios funcionários, professores os seus
+  alunos e programadores, os seus amigos (também programadores) para
+  fazer testes em páginas Web. Bom, isso não é muito confiável, pois o
+  domínio de crenças, as esferas de valores, a capacidade econômica e
+  outros fatores explicados pela \textbf{Teoria dos Jogos} podem
+  explicar distorções não hora de se se simular/comprar (eu posso
+  arriscar 1 bilhão em ações num simulador e não ter coragem de comprar
+  um título de R\$5.000,00 num banco e que envolva risco!)
+\item
+  \textbf{tempo do teste insuficiente} - Às vezes coisas levam um tempo
+  para se estabilizar. Pessoas acostumadas com o antigo ``site'' se
+  sentem constrangidas no novo (ou o contrário) e são tentadas a comprar
+  mais, ou menos do que ao longo do tempo. As pessoas terão talvez que
+  se acostumar com a nova plataforma
+\item
+  \textbf{engodo do ``estouro de vendas''} - (um exemplo disso é o
+  \textbf{erro da promoção}: uma loja não está vendendo bem e resolve
+  fazer uma ``queima de estoque''. Então aparecem muitos e muitos
+  compradores. Tudo volta a se estabilizar e as vendas com o passar dos
+  meses, se nota que estão \textbf{abaixo} das da queima\ldots{} por
+  quê? Está todo mundo esperando o novo ``queimão''!)
+\item
+  \textbf{mercadorias tendenciosas} - Eu vendia muito bem no meu antigo
+  ``site'' um ``Eau de Parfum'' que custa 500 o frasco de 50ml. No novo
+  ``site'' eu vendo melhor uma ``Eau de Toilette'' que custa 125 o
+  frasco de 250ml. Só que a minha margem de lucro nas antigas vendas era
+  consideravelmente melhor! (Às vezes estamos em um \textbf{franja de
+  mercado} e mesmo ao custo de vender pouco, evitamos uma concorrência
+  desnecessária com \emph{O Boticário}, para dar um exemplo
+\item
+  \textbf{mudança de freguesia} - Pronto, eu peguei um público mais
+  jovem e arrojado\ldots{} isso é mal? Não necessariamente! mas é o
+  mesmo problema do ítem \textbf{anterior} (Se eu conseguir permissão
+  para acessar o perfil do \emph{Facebook} do meu cliente, isso seria
+  talvez o sonho!)
+\item
+  \textbf{custo da rejeição é maior do que o ganho da promoção} - Isso
+  recentemente virou uma discussão envolvendo entre outras coisas
+  \textbf{eleição presidencial} (não entrando no mérito, pois aqui isso
+  é \textbf{irrelevante}!)\ldots{} se a antiga estrutura me causava
+  pouca rejeição, mas poucas vendas\ldots{} a estrutura nova me causa
+  muitas vendas mas maior rejeição\ldots{} isso é uma balança
+  \textbf{delicadíssima} e que pode me custar o meu comércio fechar as
+  portas em um futuro próximo\ldots{} altas taxas de rejeição, seja lá
+  no que for, tendem a dar \textbf{Efeito de Memória} e criar maiores e
+  maiores rejeições a longo prazo\ldots{}
+\item
+  por falar em efeito de memória\ldots{} vale a pena citar
+  \textbf{Fenômeno de Aniversariamento} - Aniversariamento é um fator da
+  memória humana muito estudado por psiquiatras e analistas do
+  comportamento humano. Basicamente funciona assim: num país hipotético,
+  um presidente hipotético mudou o padrão monetário para \(Cruzado\) a
+  fim de evitar inflação galopante. Junto com este pacote, que a
+  princípio foi \textbf{bem recebido} pela população, o gentil homem
+  teria feito um confisco de poupança hipotético, que gerou grande
+  instatisfação e consequentemente, uma movimentação popular que o levou
+  a perder o cargo de presidência hipotética. O que aconteceria se um
+  novo presidente, para conter evolução inflacionária propusesse mudança
+  no padrão monetário? Quase que certamente uma \textbf{revolta popula
+  imediata e sem precedentes}. Qual a razão? \textbf{Fenômeno de
+  Aniversariamento}. E isso poderia ocorrer, caso tentássemos diversos
+  ``sites'' novos e problemáticos para nossa \textbf{Audacity}\ldots{}
+\item
+  \textbf{Efeito Zeitgeist} (``Espírito do Tempo'') - Era moda no
+  entre-guerras a moda ``Prêt-a-porter'' (pronta para sair), um estilo
+  provocante e inovador da mulher jovem dizendo: ``meus pais não me
+  seguram mais, acabou a guerra e com ela, a tradição\ldots{}''. A
+  escola Bauhaus foi considera \textbf{socializante e escandalosa} e em
+  1933, foi fechada à força por uma sociedade que buscava valores
+  mais\ldots{} ``tradicionais'' na Alemanha Nazista\ldots{} E hoje a
+  maioria do nosso mobiliário possui \textbf{forte inspiração} na
+  Bauhaus! Então nosso ``site'' pode receber mais conversões agora por
+  ``ser vintage'' e alguns anos depois ser considerado ``boco-moco''
+  pela maioria dos seus usuários\ldots{} mesmo sem \textbf{nenhuma}
+  modificação!
+\item
+  \textbf{Efeito Repertório} - É um outro fenômeno estudado por
+  psiquiatras e analistas de comportamento. Pessoas com uma cultura mais
+  limitada (independendo se vieram de castas economicamente mais
+  favorecidas, ou de regiões consideradas mais ricas de um país), quando
+  são expostas a \textbf{situações novas} tendem a ficar sem ação, ou
+  mesmo entrar em desespero. Suponha um exemplo de dois engenheiros.
+  Ambos fizeram faculdade de Engenharia, se formaram e foram trabalhar.
+  Mais tarde houve uma crise fenomenal e ambos ficaram sem
+  emprego\ldots{} o detalhe é que um deles aprendeu o ofício de
+  \textbf{marcenaria} na sua juventude e com isso conseguiu pagar as
+  contas fazendo banquinhos para vender na feira\ldots{} um
+  \textbf{indígena} ou um \textbf{quilombola} pode ter mais repertório
+  do que um cidadão moderno médio e isso pode lhe dar mais chances de
+  adaptação/sobrevivência em condições extremas\ldots{} bom, se eu
+  trabalho com um público de \textbf{pouco repertório}, qualquer mudança
+  tenderá a ser mal vista e criticada, mesmo que seja para o bem\ldots{}
+  como saber se meu público é assim? Isso demanda análises mais apuradas
+  e complexas\ldots{}
+\item
+  \textbf{Efeito Aprendizado} - Ao longo do tempo, eu aprendo a corrigir
+  e a limar meu ``site'' e a manutenção passa a custar pouco e ser mais
+  fácil\ldots{} já o meu novo ``site'' funciona mais como um
+  \textbf{protótipo} de um avião ou de um automóvel\ldots{} ele tende a
+  me dar mais problemas, a estar com mais arestas\ldots{} tudo isso
+  desagrada o usuário\ldots{} mesmo que ao final meu produto seja muito
+  melhor!
+\item
+  \textbf{Efeito Vaca Sagrada} - Na Índia, as vacas eram consideradas
+  animais sagrados. Mas um proprietário de uma empresa, ou antigos
+  diretores com muita voz na decisão podem dizer ``Ah\ldots{} isso não é
+  negociável! Isso é \textbf{sagrado}!''. Então pronto, nós temos
+  algumas feições do nosso projeto que são \textbf{inalteráveis} (e que
+  podem tornar muito cara minha mudança para o novo ``site'')
+\item
+  \textbf{Efeito Ação Imediata} - Se percebeu que quando colocado sob
+  pressão, o ser humano costuma a optar por ferramentas intelectuais
+  mais primitivas e que dão respostas mais imediatas. Assim, se eu tenho
+  que montar um caixote de madeira e tenho meu final de semana para
+  isso, primeiro eu abro minha latinha de cerveja, separo as ferramentas
+  (chave de fenda, furadeira, parafusos para madeira, cola\ldots{}),
+  faço as medições, desenho no papel\ldots{} agora se é para um ``se
+  vira nos 30!'', eu nem consigo pensar direito, vai ser no serrote,
+  prego e martelo! Então, se eu induzir meu cliente a executar sua
+  compra na tela ``promoção relâmpago: 30 segundos'', eu possivelmente
+  acionarei partes mais primitivas do cérebro dele e ele provavelmente
+  fará a compra\ldots{} e 15 minutos depois estará me ligando para
+  cancelar por arrependimento! Má estratégia! Se meu ``site'' novo se
+  basear nesta ação, estarei perdido\ldots{}
+\item
+  \textbf{Efeito em Cadeia} - Um curso leva a outro e isso leva a
+  outro\ldots{} e a um programa de fidelização\ldots{} Se meu ``site''
+  novo refletir melhor isso, eu poderei esperar lucros maiores e
+  seguros\ldots{} num horizonte temporal maior. É difícil de modelizar
+  isso\ldots{} mas suponha que minha \textbf{Audacity} agora oferece um
+  determinado curso hipotético chamado \textbf{Fundamentos em Data
+  Science II} a ser feito como continuação do\ldots{}
+\item
+  \textbf{Perfis Estratégicos} - Em \textbf{Teoria dos Jogos} temos
+  jogadores \textbf{Aversos ao Risco}, \textbf{Neutros ao Risco}, etc..
+  No comércio, vendedores costumam classificar pessoas como
+  \textbf{Apoiador}, \textbf{Meticuloso}, \textbf{Realizador} e
+  \textbf{Expressivo}. Às vezes o novo ``site'' agrada a um desses
+  grupos, mas causa problemas com os outros!
+\item
+  \textbf{Jogo do Prisioneiro} - Um clássico problema de \textbf{Teoria
+  dos Jogos}, uma determinada pessoa, sem saber qual foi a decisão das
+  demais, é levada a ``converter'' ou ``não converter'', segundo um
+  cálculo de riscos e benefícios potenciais. A \textbf{Audacity} poderia
+  usar uma estratégia deste tipo na sua nova página\ldots{}
+\item
+  \textbf{Tac-for-Toe} ou ``jogo da manipulação''- Analisando
+  comportamento de pássaros, se descobriu que é muito frequente que um
+  deles, para induzir determinado comportamento nos demais, faça uma
+  determinada ação. Então meu novo ``site'' me ``oferece uma minhoca'',
+  na esperança de que o cliente faça o mesmo no seu turno. É um
+  comportamento complexo e que em alguns casos, dá muito certo
+  (golpistas e fraudadores costumam usar com frequência desta tática,
+  mas ela poderia ser usada para o bem).
+\item
+  \textbf{Efeito Titanic} - Eu já investi 100 mil na minha antiga página
+  da \textbf{Audacity}\ldots{} como eu justificarei isso para meus
+  diretores? Não seria melhor gastar os 20 mil para deixá-la ainda
+  melhor? Nem é necessário explicar muito, mas o \textbf{Efeito Titanic}
+  costuma causar muitas distorções na hora de avaliar resultados
+  \textbf{reais}, como a do desempenho da minha nova plataforma\ldots{}
+\item
+  \textbf{Efeito de Clã} - Eu uso um jargã próprio (como num grupo
+  hipotético de Twitter envolvendo \textbf{Floofer},
+  \textbf{Doggo}\ldots{}) e com isso eu atraio apenas pessoas do meu
+  próprio clã. Isso pode ser bom ou muito \textbf{prejudicial} (o que
+  normalmente é) nas feições do meu novo ``site''\ldots{}
+\item
+  \textbf{Efeito Iniciático} - O meu aluno do meu novo ``site'' é
+  compelido a se sentir um ``iniciado'', com provas de iniciação e tudo
+  mais na minha nova estrutura\ldots{} e ele é compelido a comprar novos
+  produtos, cada vez mais complexos e caros\ldots{} (isso parece
+  extremamente \textbf{maléfico}, mas nem sempre! - às vezes a sociedade
+  acaba reconhecendo o aluno da \textbf{Audacity} como um cara valoroso
+  para se ter numa empresa e os ganhos individuais podem superar e muito
+  o valor investodo\ldots{})
+\item
+  \textbf{Efeito Moby Dick} - Inspirado no romance de Herman Melville,
+  um indivíduo (o capitão Ahrab) se torna, após um trauma (perda de uma
+  perna), tão obstinado a eliminar um determinado cachalote (Moby Dick)
+  que acaba levando seu navio e tripulaão ao desastre. Em alguns casos,
+  o meu ``site'' pode resultar em ações muito diversas do esperado, ao
+  expor seus integrantes a situações traumáticas (como um hipotético
+  curso imenso de \textbf{Data Science 2} e que parece não ter mais
+  fim!)
+\item
+  \textbf{Efeito Dominó} - Minha nova página altamente promocional,
+  oferecendo aquele curso dos sonhos por ``apenas R\$5,00'' fez com que
+  a \emph{Udemy}, a \emph{Udacity}, meus concorrentes, a fazerem o
+  mesmo. Resultado: um leilão de cursos baixos que fará todo mundo
+  perder dinheiro (e os mais fracos a falirem). Os pontos de equilíbrio
+  de \textbf{Nash}, em \textbf{Teoria dos Jogos} ajudam a descrever este
+  e outros efeitos de grupo e que podem ter resultados terríveis.
+\item
+  \textbf{Hipnose} - Não se sabe exatamente como ela funciona.
+  Aparentemente algumas pessoas já são \textbf{sugestionáveis} para
+  tomar determinado tipo de ação. Foram feitos testes exaustivos neste
+  tema nos anos 60 e 70 e nunca se chegou a uma conclusão clara (pessoas
+  fortemente hipnotizadas foram apresentadas a um copo de água comum,
+  que lhes afirmaram conter um ácido terrível. Elas agiram de maneira
+  compatível à sugestão e quando pedidas a \textbf{arremessar o ácido}
+  ao rosto de outra pessoa, elas o faziam com facilidade. No entanto,
+  quando aparecia uma pessoa com luvas e máscara e enchia com cautela um
+  segundo copo de solução salina parecida com ácido de verdade, o que
+  ocorria era invariavelmente a pessoa sair do \textbf{transe
+  hipnótico}). Explorar estes efeitos num site da \textbf{Audacity}?
+  Isso poderia custar \textbf{boas risadas} ou um enorme
+  \textbf{processo judicial}. É anti-ético manipular pessoas! (embora
+  diversas seitas façam isso a todo momento!).
+\item
+  \textbf{Teoria da Guerra} - Um dos campos pouco estudados na Teoria
+  dos Jogos. Mas o importante ao final é \textbf{ganhar todas as
+  batalhas}, \textbf{subjugar e humilhar o oponente}, \textbf{não sofrer
+  muitos danos} ou \textbf{estabelecer a paz a qualquer preço}? Ao criar
+  uma nova plataforma em um mercado competitivo, a nossa
+  \textbf{Audacity} terá que lidar com todos esses dilemas. E isso não é
+  explicado por um simples \textbf{Teste de Hipóteses}\ldots{}
+\end{itemize}
+
+\emph{(Tirado a grosso modo dos meus estudos em Sistêmica, na leitura da
+``Enciclopédia Internacional de Cibernética e Sistêmica'', de Charles
+François, 2 vols.)}
+
+Tudo isso deveria ser levado em consideração ao se fazer projetos para
+lançamento de novos produtos\ldots{}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
