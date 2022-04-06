@@ -1,4 +1,4 @@
-# FundamentosDataScience2
+# Fundamentos de Data Science 2
 Curso Udacity Fundamentos em Data Science 2 (nível intermediário)
 
 
@@ -11,7 +11,7 @@ Notas de aula do curso da Udacity.
 1. Notas de aula
 
 2. Dois arquivos Jupyter Notebook com o resumo dos meus estudos (talvez eles precisem receber pequenas adaptações para rodar
-3. 
+
 #### Licença para este commitment:
 Este programa é baseado na licença MIT. Uma descrição completa da licença encontra-se aqui [Wikipedia](https://en.wikipedia.org/wiki/MIT_License)
 
